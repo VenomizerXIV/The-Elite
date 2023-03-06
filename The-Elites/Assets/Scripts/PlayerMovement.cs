@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         if (superPowerActivated)
         {
             superPowerTimer += Time.deltaTime / Time.timeScale;
-            Debug.Log("timer +++ " + superPowerTimer);
+            
         }
 
         if (superPowerInfo != null && superPowerLimit > 0 && !superPowerActivated)
