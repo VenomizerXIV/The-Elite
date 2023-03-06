@@ -1,17 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerMovement : MonoBehaviour
 {
 
     //super power delegate function and event
     //it notify all subscribed object
-    public delegate void superPowerActivated();
-    public static event superPowerActivated superPowerInfo;
+    public delegate void superPower();
+    public static event superPower superPowerInfo;
 
     //super power limit decrease when superPower used
     [SerializeField] private int superPowerLimit = 1;
+
+
+    [SerializeField] private PostProcessVolume _postProcessVolume;
+    private static Vignette _vignette;
+
+    // super power activated or not
+    private bool superPowerActivated = false;
+    // super power time limit
+    [SerializeField] private float superPowerTimeLimit = 10f;
+    // super power timer
+    private float superPowerTimer = 0.0f;
+
+    [SerializeField] private float TimeScale = 0.5f;
 
     private enum PlayerMtype
     {
@@ -28,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
         RBplayer = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+
+        _postProcessVolume.profile.TryGetSettings(out _vignette);
     }
 
 
@@ -39,41 +55,45 @@ public class PlayerMovement : MonoBehaviour
 
 
         //superPower Activation key
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKeyDown("q") || superPowerActivated)
         {
-            if (superPowerInfo != null && superPowerLimit > 0)
-            {
-                superPowerInfo();
-                superPowerLimit--;
-            }
+            activeSuperPower();
         }
-
-
-        //Detect collisions between the GameObjects with Colliders attached
-        // void OnCollisionEnter(Collision collision)
-        // {
-        //     //Check for a match with the specified name on any GameObject that collides with your GameObject
-        //     if (collision.gameObject.name == "superPowerActivator")
-        //     {
-        //         //If the GameObject's name matches the one you suggest, output this message in the console
-        //         Debug.Log("Do something here");
-        //     }
-
-        //     //Check for a match with the specific tag on any GameObject that collides with your GameObject
-        //     if (collision.gameObject.tag == "MyGameObjectTag")
-        //     {
-        //         //If the GameObject has the same tag as specified, output this message in the console
-        //         Debug.Log("Do something else here");
-        //     }
-        // }
 
         // Jumping of the player
         if (Input.GetButtonDown("Jump"))
         {
             RBplayer.velocity = new Vector2(RBplayer.velocity.x, JumpPower);
+            Debug.Log(JumpPower);
         }
         UpdateAnimation();
     }
+
+
+
+    private void activeSuperPower()
+    {
+
+        if (superPowerActivated)
+        {
+            superPowerTimer += Time.deltaTime / Time.timeScale;
+            Debug.Log("timer +++ " + superPowerTimer);
+        }
+
+        if (superPowerInfo != null && superPowerLimit > 0 && !superPowerActivated)
+        {
+            superPowerInfo();
+            FreezeTimeStart();
+        }
+
+        if (superPowerTimer > superPowerTimeLimit && superPowerActivated)
+        {
+            FreezeTimeStop();
+        }
+
+
+    }
+
     // Animation of the player
     private void UpdateAnimation()
     {
@@ -103,6 +123,35 @@ public class PlayerMovement : MonoBehaviour
         }
 
         anim.SetInteger("state", (int)State);
+    }
 
+
+
+    private void FreezeTimeStart()
+    {
+        Time.timeScale = TimeScale;
+        RBplayer.mass *= 4;
+        RBplayer.gravityScale *= 4;
+        superPowerLimit--;
+        anim.speed = 2;
+        MovementSpeed /= Time.timeScale;
+        JumpPower /= Time.timeScale;
+        superPowerActivated = true;
+        _vignette.active = true;
+        Debug.Log("Super Power Activated ");
+    }
+    private void FreezeTimeStop()
+    {
+        superPowerActivated = false;
+        RBplayer.mass /= 4;
+        RBplayer.gravityScale /= 4;
+        MovementSpeed *= Time.timeScale;
+        JumpPower *= Time.timeScale;
+        anim.speed = 1;
+        superPowerActivated = false;
+        superPowerTimer = 0.0f;
+        Time.timeScale = 1f;
+        _vignette.active = false;
+        Debug.Log("Super Power Timeout");
     }
 }

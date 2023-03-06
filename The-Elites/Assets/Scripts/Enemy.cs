@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+
+
+    public static float scaleOfTime = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +34,6 @@ public class Enemy : MonoBehaviour
     private void superPowerActivated()
     {
         Debug.Log("destory your self");
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
 }
