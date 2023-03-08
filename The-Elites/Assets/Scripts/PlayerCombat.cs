@@ -13,6 +13,8 @@ public class PlayerCombat : MonoBehaviour
 
     public int lightAttackDamage = 10;
     public int heavyAttackDamage = 20;
+    public int lightAttackRange = 10;
+    public int heavyAttackRange = 20;
     public LayerMask attackLayer;
 
 
@@ -88,7 +90,7 @@ public class PlayerCombat : MonoBehaviour
 // This function will be called from the light attack animation event
     public void Attack1Damage()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, Vector2.one, 0, attackLayer);
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(lightAttackRange,1), 0, attackLayer);
 
         foreach (Collider2D hitCollider in hitColliders)
         {
@@ -104,7 +106,7 @@ public class PlayerCombat : MonoBehaviour
     // This function will be called from the heavy attack animation event
     public void Attack2Damage()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, Vector2.one, 0, attackLayer);
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position,  new Vector2(heavyAttackRange,1), 0, attackLayer);
 
         foreach (Collider2D hitCollider in hitColliders)
         {
