@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             RBplayer.velocity = new Vector2(RBplayer.velocity.x, JumpPower);
-            Debug.Log(JumpPower);
+            
         }
         UpdateAnimation();
     }
