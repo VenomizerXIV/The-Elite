@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown("q") || superPowerActivated)
         {
             activeSuperPower();
-            Debug.Log("activated super power");
+            // Debug.Log("activated super power");
         }
 
         // Jumping of the player
@@ -175,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
         RBplayer.mass /= 1 / TimeScale * 2;
         RBplayer.gravityScale /= 1 / TimeScale * 2;
         MovementSpeed *= Time.timeScale;
-        JumpPower = 10;
+        JumpPower = 15;
         anim.speed = 1;
         superPowerActivated = false;
         superPowerTimer = 0.0f;

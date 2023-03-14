@@ -178,18 +178,6 @@ PrefabInstance:
       propertyPath: _postProcessVolume
       value: 
       objectReference: {fileID: 311656507}
-    - target: {fileID: 930666677300096606, guid: fb1578bc219e66648af9cf60cea66fc0, type: 3}
-      propertyPath: cooldownTime
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 930666677300096606, guid: fb1578bc219e66648af9cf60cea66fc0, type: 3}
-      propertyPath: attack1Duration
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 930666677300096606, guid: fb1578bc219e66648af9cf60cea66fc0, type: 3}
-      propertyPath: attack2Duration
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6246581028197749936, guid: fb1578bc219e66648af9cf60cea66fc0, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2480,10 +2468,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1805915609730273238, guid: d38aba4076d09f3469dd520f83d34ca5, type: 3}
-      propertyPath: attackRadius
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1965439842901567950, guid: d38aba4076d09f3469dd520f83d34ca5, type: 3}
       propertyPath: m_Name
       value: Enemy
