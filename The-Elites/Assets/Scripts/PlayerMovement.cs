@@ -37,7 +37,9 @@ public class PlayerMovement : MonoBehaviour
     private float Direction;
     [SerializeField] private float MovementSpeed = 7f;
     [SerializeField] private float JumpPower = 8f;
-
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
+    public LayerMask whatIsGround;
     private bool isGrounded;
     void Start()
     {
@@ -54,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Direction = Input.GetAxisRaw("Horizontal");
         RBplayer.velocity = new Vector2(Direction * MovementSpeed, RBplayer.velocity.y);
+       
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
 
         //superPower Activation key
@@ -62,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             activeSuperPower();
             Debug.Log("activated super power");
         }
-
+        Debug.Log(isGrounded);
         // Jumping of the player
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -100,24 +104,26 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (!isGrounded)
-            return;
+        // if (isGrounded)
+        //     return;
         Debug.Log("Jump");
         RBplayer.velocity = new Vector2(RBplayer.velocity.x, 0f);
         RBplayer.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("dddddddddddddddd : " + collision.gameObject.tag);
-        if (collision.gameObject.tag == "ground")
-        {
-            isGrounded = true;
-            RBplayer.velocity = Vector3.zero;
-            RBplayer.angularVelocity = 0f;
 
-        }
-    }
+
+    // private void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     Debug.Log("dddddddddddddddd : " + collision.gameObject.tag);
+    //     if (collision.gameObject.tag == "ground")
+    //     {
+    //         isGrounded = true;
+    //         RBplayer.velocity = Vector3.zero;
+    //         RBplayer.angularVelocity = 0f;
+
+    //     }
+    // }
 
     // Animation of the player
     private void UpdateAnimation()
@@ -138,11 +144,11 @@ public class PlayerMovement : MonoBehaviour
         {
             State = PlayerMtype.idle;
         }
-        if (RBplayer.velocity.y > 0.1f)
+        if (RBplayer.velocity.y > 0.1f && !isGrounded)
         {
             State = PlayerMtype.Jump;
         }
-        else if (RBplayer.velocity.y < -0.1f)
+        else if (RBplayer.velocity.y < -0.1f && !isGrounded)
         {
             State = PlayerMtype.Fall;
         }
