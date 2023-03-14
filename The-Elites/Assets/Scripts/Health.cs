@@ -3,20 +3,23 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
+    public float maxHealth = 100;
+    public float currentHealth;
 
-    public event Action<int, int> OnHealthChanged;
+    public bool isDied = false;
+    private Animator animator;
+    public event Action<float, float> OnHealthChanged;
 
     void Start()
     {
         currentHealth = maxHealth;
+        animator = GetComponent<Animator>();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-
+        Debug.Log("It hurts");
         if (currentHealth <= 0)
         {
             Die();
@@ -28,6 +31,11 @@ public class Health : MonoBehaviour
     void Die()
     {
         // Handle object destruction, animation, sound effects, etc.
-        Destroy(gameObject);
+        // Destroy(gameObject);
+        if (!isDied)
+        {
+            animator.SetTrigger("IsDied");
+            isDied = true;
+        }
     }
 }

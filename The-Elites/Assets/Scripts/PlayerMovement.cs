@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     //super power delegate function and event
     //it notify all subscribed object
     public delegate void superPower();
-    public static event superPower superPowerInfo;
+    // public static event superPower superPowerInfo;
 
     //super power limit decrease when superPower used
     [SerializeField] private int superPowerLimit = 1;
@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     private float Direction;
     [SerializeField] private float MovementSpeed = 7f;
     [SerializeField] private float JumpPower = 8f;
+
+    private bool isGrounded;
     void Start()
     {
         RBplayer = GetComponent<Rigidbody2D>();
@@ -58,13 +60,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown("q") || superPowerActivated)
         {
             activeSuperPower();
+            Debug.Log("activated super power");
         }
 
         // Jumping of the player
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            RBplayer.velocity = new Vector2(RBplayer.velocity.x, JumpPower);
-            
+            // RBplayer.velocity = new Vector2(RBplayer.velocity.x, JumpPower);
+            Jump();
         }
         UpdateAnimation();
     }
@@ -77,12 +80,13 @@ public class PlayerMovement : MonoBehaviour
         if (superPowerActivated)
         {
             superPowerTimer += Time.deltaTime / Time.timeScale;
-            
+
         }
 
-        if (superPowerInfo != null && superPowerLimit > 0 && !superPowerActivated)
+        if (superPowerLimit > 0 && !superPowerActivated)
         {
-            superPowerInfo();
+            Debug.Log("superpower activated " + superPowerActivated);
+            // superPowerInfo();
             FreezeTimeStart();
         }
 
@@ -91,7 +95,28 @@ public class PlayerMovement : MonoBehaviour
             FreezeTimeStop();
         }
 
+    }
 
+
+    public void Jump()
+    {
+        if (!isGrounded)
+            return;
+        Debug.Log("Jump");
+        RBplayer.velocity = new Vector2(RBplayer.velocity.x, 0f);
+        RBplayer.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("dddddddddddddddd : " + collision.gameObject.tag);
+        if (collision.gameObject.tag == "ground")
+        {
+            isGrounded = true;
+            RBplayer.velocity = Vector3.zero;
+            RBplayer.angularVelocity = 0f;
+
+        }
     }
 
     // Animation of the player
@@ -125,17 +150,15 @@ public class PlayerMovement : MonoBehaviour
         anim.SetInteger("state", (int)State);
     }
 
-
-
     private void FreezeTimeStart()
     {
         Time.timeScale = TimeScale;
-        RBplayer.mass *= 4;
-        RBplayer.gravityScale *= 4;
+        RBplayer.mass *= 1 / TimeScale * 2;
+        RBplayer.gravityScale *= 1 / TimeScale * 2;
         superPowerLimit--;
-        anim.speed = 2;
+        anim.speed = 1 / TimeScale;
         MovementSpeed /= Time.timeScale;
-        JumpPower /= Time.timeScale;
+        JumpPower = 250;
         superPowerActivated = true;
         _vignette.active = true;
         Debug.Log("Super Power Activated ");
@@ -143,10 +166,10 @@ public class PlayerMovement : MonoBehaviour
     private void FreezeTimeStop()
     {
         superPowerActivated = false;
-        RBplayer.mass /= 4;
-        RBplayer.gravityScale /= 4;
+        RBplayer.mass /= 1 / TimeScale * 2;
+        RBplayer.gravityScale /= 1 / TimeScale * 2;
         MovementSpeed *= Time.timeScale;
-        JumpPower *= Time.timeScale;
+        JumpPower = 10;
         anim.speed = 1;
         superPowerActivated = false;
         superPowerTimer = 0.0f;

@@ -87,10 +87,24 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-// This function will be called from the light attack animation event
+
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a circle around the player lightAttackRange zone
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, lightAttackRange);
+        // Draw a circle around the Player heavyAttackRange zone
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, heavyAttackRange);
+
+    }
+
+
+    // This function will be called from the light attack animation event
     public void Attack1Damage()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(lightAttackRange,1), 0, attackLayer);
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(lightAttackRange, 1), 0, attackLayer);
 
         foreach (Collider2D hitCollider in hitColliders)
         {
@@ -106,10 +120,11 @@ public class PlayerCombat : MonoBehaviour
     // This function will be called from the heavy attack animation event
     public void Attack2Damage()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position,  new Vector2(heavyAttackRange,1), 0, attackLayer);
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(heavyAttackRange, 1), 0, attackLayer);
 
         foreach (Collider2D hitCollider in hitColliders)
         {
+            Debug.Log(hitCollider.tag);
             Health health = hitCollider.GetComponent<Health>();
             if (health != null)
             {

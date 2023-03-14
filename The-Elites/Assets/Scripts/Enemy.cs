@@ -22,12 +22,12 @@ public class Enemy : MonoBehaviour
     // subscribe to event when game object enabled
     private void OnEnable()
     {
-        PlayerMovement.superPowerInfo += superPowerActivated;
+        // PlayerMovement.superPowerInfo += superPowerActivated;
     }
     // unsubscribe from event when game object disabled
     private void OnDisable()
     {
-        PlayerMovement.superPowerInfo -= superPowerActivated;
+        // PlayerMovement.superPowerInfo -= superPowerActivated;
     }
 
     // function activated when superPower activated
