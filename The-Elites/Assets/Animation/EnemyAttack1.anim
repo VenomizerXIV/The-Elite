@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerAttack2
+  m_Name: EnemyAttack1
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -1010954225, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
+      value: {fileID: 2029416940, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
     - time: 0.125
-      value: {fileID: -1959148139, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
+      value: {fileID: -129769475, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
     - time: 0.25
-      value: {fileID: -2110626948, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
+      value: {fileID: -2141941398, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
     - time: 0.375
-      value: {fileID: -963593322, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
+      value: {fileID: -460673177, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,10 +46,10 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -1010954225, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
-    - {fileID: -1959148139, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
-    - {fileID: -2110626948, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
-    - {fileID: -963593322, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
+    - {fileID: 2029416940, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
+    - {fileID: -129769475, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
+    - {fileID: -2141941398, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
+    - {fileID: -460673177, guid: 0548a2b0f5d35bc42b15fd3f25e6a4ad, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -76,14 +76,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.25
-    functionName: Attack2Damage
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.375
-    functionName: EndAttack
+    functionName: Attack1Damage
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

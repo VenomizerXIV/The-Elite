@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             activeSuperPower();
             Debug.Log("activated super power");
         }
-        Debug.Log(isGrounded);
+
         // Jumping of the player
         if (Input.GetButtonDown("Jump") && isGrounded)
         {

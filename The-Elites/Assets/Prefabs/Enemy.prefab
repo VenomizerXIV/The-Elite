@@ -61,7 +61,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965439842901567950}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.7387056, y: -3.12347, z: 6.9666004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.18866491, y: 0.101588845}
+  m_Offset: {x: 0.18866491, y: -0.19832295}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -146,7 +146,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.44851732, y: 1.2612288}
+  m_Size: {x: 0.44851732, y: 0.6614052}
   m_EdgeRadius: 0
 --- !u!50 &1805915609730273259
 Rigidbody2D:
@@ -220,12 +220,13 @@ MonoBehaviour:
   jumpForce: 10
   speed: 2
   zoneRadius: 5
-  attackRadius: 0.85
+  attackRadius: 1
   isFollowing: 0
   isAttack: 0
   animator: {fileID: 1805915609730273260}
   groundCheck: {fileID: 1805915609774962766}
-  groundLayer:
+  groundCheckRadius: 0.5
+  whatIsGround:
     serializedVersion: 2
     m_Bits: 64
 --- !u!114 &1805915609730273237

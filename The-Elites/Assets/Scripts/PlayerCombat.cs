@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    private Animator anim;
-    [SerializeField] private float cooldownTime = 1f;
-    private float nextFireTime = 0.5f;
-    public static int noOfClicks = 0;
-    float lastClickedTime = 0;
-    float maxComboDelay = 0.5f;
+    public float attack1Duration = 0.5f; // Duration of the first attack animation
+    public float attack2Duration = 0.5f; // Duration of the second attack animation
+    public float cooldownTime = 1f; // Cooldown time between attacks
+    public float timeToNextAttack = 0.5f; // Time limit for initiating the second attack
+    public bool canAttack = true; // Whether the player can currently attack
+
+    private Animator anim; // Reference to the Animator component
+    private bool isAttacking = false; // Whether the player is currently attacking
+    private int attackStep = 0; // Which step of the attack the player is on
+    private float timeSinceAttack = 0f; // Time since the last attack
+    private int clicks = 0; // Number of left mouse button clicks in quick succession
+    private float clickTime = 0.3f; // Maximum time between left mouse button clicks for a double-click
 
     public int lightAttackDamage = 10;
     public int heavyAttackDamage = 20;
@@ -25,68 +31,70 @@ public class PlayerCombat : MonoBehaviour
 
     void Update()
     {
-        // Check if Attack1 animation has finished playing
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= cooldownTime && anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+        // Check if the player can attack
+        if (canAttack && !isAttacking)
         {
-            // Reset Attack1 bool if player did not complete the combo attack
-            if (noOfClicks < 2)
-            {
-                anim.SetBool("Attack1", false);
-            }
-        }
-        // Check if Attack2 animation has finished playing
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= cooldownTime && anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
-        {
-            // Reset both Attack1 and Attack2 bools after combo attack is completed
-            anim.SetBool("Attack1", false);
-            anim.SetBool("Attack2", false);
-            noOfClicks = 0;
-        }
-
-        // Reset combo attack if maxComboDelay time has passed since last click
-        if (Time.time - lastClickedTime > maxComboDelay)
-        {
-            anim.SetBool("Attack1", false);
-            anim.SetBool("Attack2", false);
-            noOfClicks = 0;
-        }
-
-        // Check if it's time to register another click
-        if (Time.time > nextFireTime)
-        {
+            // Check for left mouse button input
             if (Input.GetMouseButtonDown(0))
             {
-                OnClick();
+                clicks++;
+                Debug.Log(clicks);
+                // If the player has clicked twice in quick succession, initiate the attack sequence
+                if (clicks == 2)
+                {
+                    // Start the attack sequence with attack1
+                    anim.SetTrigger("attack1");
+                    isAttacking = true;
+                    attackStep = 1;
+
+                    // Reset the click counter
+                    clicks = 0;
+
+                    // Reset the time since the last attack
+                    timeSinceAttack = 0f;
+
+                    // Disable the ability to attack during the cooldown time
+                    canAttack = false;
+                    Invoke("EnableAttack", cooldownTime);
+                }
+                else
+                {
+                    // Start the timer for a double-click
+                    Invoke("ResetClicks", clickTime);
+                }
             }
         }
+
+        // If the player is on the second step of the attack
+        if (attackStep == 2)
+        {
+            // Check for left mouse button input
+            if (Input.GetMouseButtonDown(0))
+            {
+                // Start the second attack animation
+                anim.SetTrigger("attack2");
+                isAttacking = true;
+                attackStep = 0;
+
+                // Reset the click counter
+                clicks = 0;
+
+                // Disable the ability to attack during the cooldown time
+                canAttack = false;
+                Invoke("EnableAttack", cooldownTime);
+            }
+        }
+
+        // Update the time since the last attack
+        timeSinceAttack += Time.deltaTime;
+
+        // If enough time has passed since the last attack, reset the attack step and click counter
+        if (attackStep == 1 && timeSinceAttack > clickTime)
+        {
+            attackStep = 0;
+            clicks = 0;
+        }
     }
-
-    void OnClick()
-    {
-        lastClickedTime = Time.time;
-        noOfClicks++;
-
-        if (noOfClicks == 1)
-        {
-            anim.SetBool("Attack1", true);
-        }
-
-        noOfClicks = Mathf.Clamp(noOfClicks, 0, 2);
-
-        // Check if the Attack1 animation is playing and the max combo delay has not been reached
-        if (noOfClicks >= 2 && anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < cooldownTime)
-        {
-            // Set Attack2 to true to prepare for the combo attack
-            anim.SetBool("Attack2", true);
-        }
-        else if (noOfClicks >= 2 && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
-        {
-            // Start the Attack2 animation
-            anim.SetBool("Attack1", false);
-            anim.SetBool("Attack2", true);
-        }
-    }
-
 
 
     void OnDrawGizmosSelected()
@@ -100,6 +108,33 @@ public class PlayerCombat : MonoBehaviour
 
     }
 
+
+    // Function to enable the ability to attack after the cooldown time
+    void EnableAttack()
+    {
+        canAttack = true;
+    }
+
+    // Function to reset the click counter
+    void ResetClicks()
+    {
+        clicks = 0;
+    }
+
+
+
+    // Function to be called at the end of the first attack animation
+    public void AttackStep2()
+    {
+        attackStep = 2;
+        isAttacking = false;
+    }
+
+    // Function to be called at the end of the second attack animation
+    public void EndAttack()
+    {
+        isAttacking = false;
+    }
 
     // This function will be called from the light attack animation event
     public void Attack1Damage()

@@ -12,11 +12,11 @@ public class EnemyController : MonoBehaviour
     public bool isAttack;
     public Animator animator; // reference to animator component
     private EnemyCombat enemyCombat;
-    private bool isGrounded = true;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
     private Rigidbody2D rb;
-
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
+    public LayerMask whatIsGround;
+    private bool isGrounded;
     private Health health;
     void Start()
     {
@@ -35,6 +35,10 @@ public class EnemyController : MonoBehaviour
             // attackTimer -= Time.deltaTime;
             // Check if player is within the enemy's zone
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+
 
             Vector2 direction = player.position - transform.position;
 
@@ -63,7 +67,7 @@ public class EnemyController : MonoBehaviour
                     isAttack = false;
                 }
 
-                if (IsGrounded() && player.position.y - transform.position.y >= 2)
+                if (isGrounded && player.position.y - transform.position.y >= 2)
                 {
                     Jump();
                     // rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
@@ -77,7 +81,7 @@ public class EnemyController : MonoBehaviour
 
             enemyCombat.canAttack = isAttack;
             animator.SetBool("isMoving", isFollowing);
-            animator.SetBool("IsGrounded", IsGrounded());
+            animator.SetBool("IsGrounded", isGrounded);
             animator.SetFloat("VerticalSpeed", rb.velocity.y);
 
         }
@@ -92,18 +96,11 @@ public class EnemyController : MonoBehaviour
 
     }
 
-
-    bool IsGrounded()
-    {
-        // Check if the character is on the ground using the groundCheck transform and the groundLayer mask
-        return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-    }
-
     public void Jump()
     {
         if (!isGrounded)
             return;
-        Debug.Log("Jump");
+        // Debug.Log("Jump");
         rb.velocity = new Vector2(rb.velocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }

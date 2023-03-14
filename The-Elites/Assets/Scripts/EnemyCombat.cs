@@ -49,7 +49,7 @@ public class EnemyCombat : MonoBehaviour
             int attackNum = Random.Range(1, 3);
             animator.SetInteger("AttackNum", attackNum);
             animator.SetTrigger("Attack");
-            Attack1Damage();
+            // Attack1Damage();
             // set attack timer and flag
             isAttacking = true;
             attackTimer = attackDelay;
