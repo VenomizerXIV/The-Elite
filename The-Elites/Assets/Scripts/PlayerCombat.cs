@@ -20,11 +20,12 @@ public class PlayerCombat : MonoBehaviour
     public int heavyAttackRange = 20;
     public LayerMask attackLayer;
     private float lastAttackTime = 0f; // time of last attack
-
+    
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        
     }
 
     void Update()
