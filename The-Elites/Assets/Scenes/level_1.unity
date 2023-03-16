@@ -7528,6 +7528,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1367799821}
     m_Modifications:
+    - target: {fileID: 1805915609730273239, guid: d38aba4076d09f3469dd520f83d34ca5, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 282147094}
     - target: {fileID: 1965439842901567950, guid: d38aba4076d09f3469dd520f83d34ca5, type: 3}
       propertyPath: m_Name
       value: enemy
