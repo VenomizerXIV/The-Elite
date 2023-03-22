@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -45,7 +46,13 @@ public class Health : MonoBehaviour
 
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Trap")
+        {
+            TakeDamage(100);
+        }
+    }
     void Die()
     {
         // Handle object destruction, animation, sound effects, etc.
@@ -55,5 +62,9 @@ public class Health : MonoBehaviour
             animator.SetTrigger("IsDied");
             isDied = true;
         }
+    }
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
