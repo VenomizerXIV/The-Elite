@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 930666677300096607}
   - component: {fileID: 930666677300096606}
   - component: {fileID: 930666677300096605}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -194,8 +194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3aa172d2332fc04797250b5947c53f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack1Duration: 0
-  attack2Duration: 0
   cooldownTime: 0
   timeToNextAttack: 0.5
   canAttack: 1
@@ -220,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+  healthBar: {fileID: 0}
   isDied: 0
 --- !u!1 &6566252344423152170
 GameObject:

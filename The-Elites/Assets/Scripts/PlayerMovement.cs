@@ -156,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetInteger("state", (int)State);
     }
 
-    private void FreezeTimeStart()
+    public void FreezeTimeStart()
     {
         Time.timeScale = TimeScale;
         RBplayer.mass *= 1 / TimeScale * 2;
@@ -169,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
         _vignette.active = true;
         Debug.Log("Super Power Activated ");
     }
-    private void FreezeTimeStop()
+    public void FreezeTimeStop()
     {
         superPowerActivated = false;
         RBplayer.mass /= 1 / TimeScale * 2;

@@ -23,12 +23,12 @@ public class TrapController : MonoBehaviour
         else if (transform.position.x < range * -1f)
         {
             direction = 1;
-            animator.SetBool("flip", false);
+            animator.SetBool("flip", true);
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Handle collision with player or other objects
+        
     }
 }
