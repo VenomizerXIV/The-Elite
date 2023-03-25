@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
-
+using Chronos;
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private static Vignette _vignette;
 
     // super power activated or not
-    private bool superPowerActivated = false;
+    public static bool superPowerActivated = false;
     // super power time limit
     [SerializeField] private float superPowerTimeLimit = 10f;
     // super power timer
@@ -41,6 +41,9 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask whatIsGround;
     private bool isGrounded;
+
+    private Clock clock;
+
     void Start()
     {
         RBplayer = GetComponent<Rigidbody2D>();
@@ -56,9 +59,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Direction = Input.GetAxisRaw("Horizontal");
         RBplayer.velocity = new Vector2(Direction * MovementSpeed, RBplayer.velocity.y);
-       
+
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
+
+        clock = Timekeeper.instance.Clock("NonPlayer");
 
         //superPower Activation key
         if (Input.GetKeyDown("q") || superPowerActivated)
@@ -81,22 +86,36 @@ public class PlayerMovement : MonoBehaviour
     private void activeSuperPower()
     {
 
-        if (superPowerActivated)
         {
-            superPowerTimer += Time.deltaTime / Time.timeScale;
 
-        }
+            if (superPowerActivated)
+            {
+                superPowerTimer += Time.deltaTime / Time.timeScale;
 
-        if (superPowerLimit > 0 && !superPowerActivated)
-        {
-            Debug.Log("superpower activated " + superPowerActivated);
-            // superPowerInfo();
-            FreezeTimeStart();
-        }
+            }
 
-        if (superPowerTimer > superPowerTimeLimit && superPowerActivated)
-        {
-            FreezeTimeStop();
+            if (superPowerLimit > 0 && !superPowerActivated)
+            {
+                Debug.Log("superpower activated " + superPowerActivated);
+                // superPowerInfo();
+                clock.localTimeScale = 0f;
+                superPowerActivated = true;
+                _vignette.active = true;
+                superPowerLimit--;
+
+                // FreezeTimeStart();
+            }
+
+            if (superPowerTimer > superPowerTimeLimit && superPowerActivated)
+            {
+                clock.localTimeScale = 1f;
+                superPowerActivated = false;
+                _vignette.active = false;
+                superPowerTimer = 0.0f;
+
+                // FreezeTimeStop();
+            }
+
         }
 
     }

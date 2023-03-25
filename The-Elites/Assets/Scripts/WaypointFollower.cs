@@ -7,17 +7,23 @@ public class WaypointFollower : MonoBehaviour
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private float speed = 1f;
     private int waypointIndex = 0;
-    
+
+
+    public bool enable = true;
     void Update()
     {
-        if (Vector2.Distance(transform.position, waypoints[waypointIndex].position) < 0.1f)
+        if (!PlayerMovement.superPowerActivated)
         {
-            waypointIndex++;
-            if (waypointIndex >= waypoints.Length)
+
+            if (Vector2.Distance(transform.position, waypoints[waypointIndex].position) < 0.1f)
             {
-                waypointIndex = 0;
+                waypointIndex++;
+                if (waypointIndex >= waypoints.Length)
+                {
+                    waypointIndex = 0;
+                }
             }
+            transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex].position, speed * Time.deltaTime);
         }
-        transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex].position, speed * Time.deltaTime);
     }
 }
