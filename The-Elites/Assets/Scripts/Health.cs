@@ -61,7 +61,7 @@ public class Health : MonoBehaviour
         {
             animator.SetTrigger("IsDied");
             isDied = true;
-            playerMovement.FreezeTimeStop();          
+                      
         }
     }
     private void RestartLevel()
