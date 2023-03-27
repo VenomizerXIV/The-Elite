@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Direction = Input.GetAxisRaw("Horizontal");
         RBplayer.velocity = new Vector2(Direction * MovementSpeed, RBplayer.velocity.y);
-
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
 
