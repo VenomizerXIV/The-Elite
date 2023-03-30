@@ -59,7 +59,7 @@ public class Health : MonoBehaviour
         
         if (!isDied)
         {
-            rb.bodyType = RigidbodyType2D.Static;
+        
             animator.SetTrigger("IsDied");
             isDied = true;
             playerMovement.FreezeTimeStop();          
