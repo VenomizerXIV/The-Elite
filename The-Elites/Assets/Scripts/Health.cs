@@ -8,11 +8,9 @@ public class Health : MonoBehaviour
     public float currentHealth;
 
     public HealthBar healthBar;
-    public PlayerMovement playerMovement;
     public bool isDied = false;
     private Animator animator;
     public event Action<float, float> OnHealthChanged;
-    private Rigidbody2D rb;
 
     void Start()
     {
@@ -59,10 +57,9 @@ public class Health : MonoBehaviour
         
         if (!isDied)
         {
-        
             animator.SetTrigger("IsDied");
             isDied = true;
-            playerMovement.FreezeTimeStop();          
+                      
         }
     }
     private void RestartLevel()

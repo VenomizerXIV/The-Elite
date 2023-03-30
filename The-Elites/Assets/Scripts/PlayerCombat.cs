@@ -12,14 +12,12 @@ public class PlayerCombat : MonoBehaviour
     private bool isAttacking = false; // Whether the player is currently attacking
     private int attackStep = 0; // Which step of the attack the player is on
     private float timeSinceAttack = 0f; // Time since the last attack
-    private int clicks = 0; // Number of left mouse button clicks in quick succession
 
     public int lightAttackDamage = 10;
     public int heavyAttackDamage = 20;
     public int lightAttackRange = 10;
     public int heavyAttackRange = 20;
     public LayerMask attackLayer;
-    private float lastAttackTime = 0f; // time of last attack
     
 
     void Start()
