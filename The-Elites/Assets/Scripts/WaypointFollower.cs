@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Chronos;
 using UnityEngine;
 
 public class WaypointFollower : MonoBehaviour
@@ -13,18 +12,18 @@ public class WaypointFollower : MonoBehaviour
     public bool enable = true;
     void Update()
     {
-        // if (!PlayerMovement.superPowerActivated)
-        // {
-        Clock clock = Timekeeper.instance.Clock("NonPlayer");
-        if (Vector2.Distance(transform.position, waypoints[waypointIndex].position) < 0.1f)
+        if (!PlayerMovement.superPowerActivated)
         {
-            waypointIndex++;
-            if (waypointIndex >= waypoints.Length)
+
+            if (Vector2.Distance(transform.position, waypoints[waypointIndex].position) < 0.1f)
             {
-                waypointIndex = 0;
+                waypointIndex++;
+                if (waypointIndex >= waypoints.Length)
+                {
+                    waypointIndex = 0;
+                }
             }
+            transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex].position, speed * Time.deltaTime);
         }
-        transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex].position, speed * Time.deltaTime * clock.localTimeScale);
     }
-    // }
 }

@@ -8,12 +8,14 @@ public class Health : MonoBehaviour
     public float currentHealth;
 
     public HealthBar healthBar;
+    public PlayerMovement playerMovement;
     public bool isDied = false;
     private Animator animator;
     public event Action<float, float> OnHealthChanged;
 
     void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
 
@@ -59,7 +61,7 @@ public class Health : MonoBehaviour
         {
             animator.SetTrigger("IsDied");
             isDied = true;
-                      
+            playerMovement.FreezeTimeStop();          
         }
     }
     private void RestartLevel()
