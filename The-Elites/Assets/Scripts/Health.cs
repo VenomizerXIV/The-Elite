@@ -11,9 +11,11 @@ public class Health : MonoBehaviour
     public bool isDied = false;
     private Animator animator;
     public event Action<float, float> OnHealthChanged;
+    private Rigidbody2D rb;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
 
@@ -57,6 +59,7 @@ public class Health : MonoBehaviour
         
         if (!isDied)
         {
+            rb.bodyType = RigidbodyType2D.Static;
             animator.SetTrigger("IsDied");
             isDied = true;
                       

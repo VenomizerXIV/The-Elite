@@ -9,8 +9,6 @@ public class WaypointFollower : MonoBehaviour
     [SerializeField] private float speed = 1f;
     private int waypointIndex = 0;
 
-
-    public bool enable = true;
     void Update()
     {
         // if (!PlayerMovement.superPowerActivated)
