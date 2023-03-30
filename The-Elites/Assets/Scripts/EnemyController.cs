@@ -1,3 +1,4 @@
+using Chronos;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -18,6 +19,7 @@ public class EnemyController : MonoBehaviour
     public LayerMask whatIsGround;
     private bool isGrounded;
     private Health health;
+    Clock clock;
     void Start()
     {
         // Find the player object by tag
@@ -25,6 +27,8 @@ public class EnemyController : MonoBehaviour
         enemyCombat = GetComponent<EnemyCombat>();
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
+        clock = Timekeeper.instance.Clock("NonPlayer");
+
     }
 
     void Update()
@@ -62,7 +66,7 @@ public class EnemyController : MonoBehaviour
                 else
                 {
                     // Move towards the player
-                    rb.velocity = new Vector2(direction.x * speed, rb.velocity.y);
+                    rb.velocity = new Vector2(direction.x * speed * clock.timeScale, rb.velocity.y);
                     isFollowing = true;
                     isAttack = false;
                 }
@@ -102,7 +106,7 @@ public class EnemyController : MonoBehaviour
             return;
         // Debug.Log("Jump");
         rb.velocity = new Vector2(rb.velocity.x, 0f);
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        rb.AddForce(Vector2.up * jumpForce * clock.timeScale, ForceMode2D.Impulse);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
     public float currentHealth;
 
     public HealthBar healthBar;
+    public PlayerMovement playerMovement;
     public bool isDied = false;
     private Animator animator;
     public event Action<float, float> OnHealthChanged;
@@ -15,7 +16,6 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
 
@@ -62,7 +62,7 @@ public class Health : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Static;
             animator.SetTrigger("IsDied");
             isDied = true;
-                      
+            playerMovement.FreezeTimeStop();          
         }
     }
     private void RestartLevel()

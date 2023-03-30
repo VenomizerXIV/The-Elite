@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: 6305464844439045707}
   - component: {fileID: 6147905309449828893}
   - component: {fileID: 6149011280757300237}
-  - component: {fileID: 363738990050408852}
   m_Layer: 0
   m_Name: Flame
   m_TagString: Untagged
@@ -4921,23 +4920,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &363738990050408852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6310798581986732171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6090da511f8374135a15dd8655adcd44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _recordingInterval: 0.5
-  _mode: 1
-  _globalClockKey: NonPlayer
-  _rewindable: 0
-  _recordingDuration: 30
 --- !u!1 &6311499908509928827
 GameObject:
   m_ObjectHideFlags: 0
@@ -4949,7 +4931,6 @@ GameObject:
   - component: {fileID: 6313926156795901589}
   - component: {fileID: 6147774108341165555}
   - component: {fileID: 6149042726069847807}
-  - component: {fileID: 8068851801654206428}
   m_Layer: 0
   m_Name: Glow
   m_TagString: Untagged
@@ -9763,23 +9744,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &8068851801654206428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6311499908509928827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6090da511f8374135a15dd8655adcd44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _recordingInterval: 0.5
-  _mode: 1
-  _globalClockKey: NonPlayer
-  _rewindable: 0
-  _recordingDuration: 30
 --- !u!1 &6802551647957549518
 GameObject:
   m_ObjectHideFlags: 0
@@ -9791,7 +9755,6 @@ GameObject:
   - component: {fileID: 4910990326723642711}
   - component: {fileID: 6746010687172772598}
   - component: {fileID: 2092118849474500937}
-  - component: {fileID: 7034812363214081131}
   m_Layer: 0
   m_Name: Spark
   m_TagString: Untagged
@@ -14681,20 +14644,3 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &7034812363214081131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6802551647957549518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6090da511f8374135a15dd8655adcd44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _recordingInterval: 0.5
-  _mode: 1
-  _globalClockKey: NonPlayer
-  _rewindable: 0
-  _recordingDuration: 30
