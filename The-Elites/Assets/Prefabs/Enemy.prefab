@@ -44,9 +44,9 @@ GameObject:
   - component: {fileID: 1805915609730273258}
   - component: {fileID: 1805915609730273259}
   - component: {fileID: 1805915609730273260}
-  - component: {fileID: 1805915609730273239}
   - component: {fileID: 1805915609730273238}
   - component: {fileID: 1805915609730273237}
+  - component: {fileID: -4835025908484845916}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -190,21 +190,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1805915609730273239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965439842901567950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 095d5793b48d299428a20c5770754d68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
-  isDied: 0
 --- !u!114 &1805915609730273238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,3 +233,18 @@ MonoBehaviour:
   lightAttackRange: 10
   heavyAttackRange: 20
   enemyController: {fileID: 1805915609730273238}
+--- !u!114 &-4835025908484845916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965439842901567950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb977a4856c84c429a22e9c5debe7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  isDied: 0

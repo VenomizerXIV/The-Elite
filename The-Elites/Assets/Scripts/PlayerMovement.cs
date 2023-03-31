@@ -51,6 +51,13 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     // Movement of the player left and right
     {
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+            Debug.Log("Quit");
+        }
+
         Direction = Input.GetAxisRaw("Horizontal");
         RBplayer.velocity = new Vector2(Direction * MovementSpeed, RBplayer.velocity.y);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
@@ -108,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private void StopSuperPower()
+    public void StopSuperPower()
     {
         RBplayer.velocity = new Vector2(0f, 0f);
         clock.localTimeScale = 1f;

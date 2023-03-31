@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Finish : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     private void Start()
     {
-        
+         
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,6 +20,7 @@ public class Finish : MonoBehaviour
     }
     private void CompleteLevel()
     {
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         Debug.Log("Level Completed");
     }

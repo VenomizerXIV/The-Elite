@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask whatIsGround;
     private bool isGrounded;
-    private Health health;
+    private EnemyHP health;
     Clock clock;
     void Start()
     {
@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         enemyCombat = GetComponent<EnemyCombat>();
         rb = GetComponent<Rigidbody2D>();
-        health = GetComponent<Health>();
+        health = GetComponent<EnemyHP>();
         clock = Timekeeper.instance.Clock("NonPlayer");
 
     }

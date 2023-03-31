@@ -133,7 +133,7 @@ public class PlayerCombat : MonoBehaviour
         foreach (Collider2D hitCollider in hitColliders)
         {
             Debug.Log(hitCollider.tag);
-            Health health = hitCollider.GetComponent<Health>();
+            EnemyHP health = hitCollider.GetComponent<EnemyHP>();
             if (health != null)
             {
                 health.TakeDamage(heavyAttackDamage);
